@@ -1,0 +1,49 @@
+{
+  "dataSources": [
+    "SDE"
+  ],
+  "generator": "@radzen/blazor-server",
+  "https": false,
+  "layouts": [
+    "Login",
+    "Main"
+  ],
+  "logo": "",
+  "name": "SDE5",
+  "navigation": [
+    "Delivery Extracts",
+    "Delivery Parameters",
+    "Extracts",
+    "Lists",
+    "List Extracts",
+    "Parameters",
+    "Parameter Values"
+  ],
+  "pages": [
+    "Delivery Extracts",
+    "Add Delivery Extract",
+    "Edit Delivery Extract",
+    "Delivery Parameters",
+    "Add Delivery Parameter",
+    "Edit Delivery Parameter",
+    "Extracts",
+    "Add Extract",
+    "Edit Extract",
+    "Lists",
+    "Add List",
+    "Edit List",
+    "List Extracts",
+    "Parameters",
+    "Add Parameter",
+    "Edit Parameter",
+    "Parameter Values",
+    "Add Parameter Value",
+    "Edit Parameter Value"
+  ],
+  "serverLang": "cs",
+  "serverProject": true,
+  "serverVersion": "5",
+  "startPage": "Delivery Extracts",
+  "theme": "default",
+  "wasm": true
+}

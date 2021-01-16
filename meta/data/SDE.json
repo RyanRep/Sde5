@@ -1,0 +1,1340 @@
+{
+  "info": {
+    "title": "SDE",
+    "x-type": "odata",
+    "x-connector": "mssql",
+    "x-connector-version": 15
+  },
+  "definitions": {
+    "DeliveryExtract": {
+      "x-table": "Delivery.DeliveryExtract",
+      "resource": "DeliveryExtracts",
+      "required": [
+        "Name",
+        "ExtractId"
+      ],
+      "properties": {
+        "DeliveryExtractId": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "DeliveryExtract",
+              "name": "DeliveryParameters",
+              "type": "DeliveryParameter"
+            }
+          ]
+        },
+        "Name": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "Description": {
+          "type": "string",
+          "length": 200
+        },
+        "Extract": {
+          "type": "object",
+          "$ref": "#/definitions/Extract"
+        },
+        "ExtractId": {
+          "x-nullable": false,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "Extract",
+            "parentEntityType": "Extract",
+            "type": "Extract",
+            "principalKey": "ExtractId",
+            "name": "Extract",
+            "textProperty": "Name",
+            "navigationProperty": "DeliveryExtracts"
+          }
+        },
+        "DeliverAsSet": {
+          "type": "boolean"
+        },
+        "IsActive": {
+          "x-nullable": false,
+          "type": "boolean"
+        },
+        "DeliveryParameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DeliveryParameter"
+          }
+        }
+      }
+    },
+    "DeliveryParameter": {
+      "x-table": "Delivery.DeliveryParameter",
+      "resource": "DeliveryParameters",
+      "required": [
+        "DeliveryExtractId",
+        "ParameterId",
+        "ParameterValueCode"
+      ],
+      "properties": {
+        "DeliveryParameterId": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer"
+        },
+        "DeliveryExtract": {
+          "type": "object",
+          "$ref": "#/definitions/DeliveryExtract"
+        },
+        "DeliveryExtractId": {
+          "x-nullable": false,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "DeliveryExtract",
+            "parentEntityType": "DeliveryExtract",
+            "type": "DeliveryExtract",
+            "principalKey": "DeliveryExtractId",
+            "name": "DeliveryExtract",
+            "textProperty": "Name",
+            "navigationProperty": "DeliveryParameters"
+          }
+        },
+        "Parameter": {
+          "type": "object",
+          "$ref": "#/definitions/Parameter"
+        },
+        "ParameterId": {
+          "x-nullable": false,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "Parameter",
+            "parentEntityType": "Parameter",
+            "type": "Parameter",
+            "principalKey": "ParameterId",
+            "name": "Parameter",
+            "textProperty": "Name",
+            "navigationProperty": "DeliveryParameters"
+          }
+        },
+        "Value": {
+          "type": "string",
+          "length": 4000
+        },
+        "ParameterValue": {
+          "type": "object",
+          "$ref": "#/definitions/ParameterValue"
+        },
+        "ParameterValueCode": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 4,
+          "x-foreignKey": {
+            "parentTable": "ParameterValue",
+            "parentEntityType": "ParameterValue",
+            "type": "ParameterValue",
+            "principalKey": "ParameterValueCode",
+            "name": "ParameterValue",
+            "textProperty": "name",
+            "navigationProperty": "DeliveryParameters"
+          }
+        }
+      }
+    },
+    "Extract": {
+      "x-table": "Extract.Extract",
+      "resource": "Extracts",
+      "required": [
+        "Name",
+        "Description",
+        "ExternalCode"
+      ],
+      "properties": {
+        "ExtractId": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "Extract",
+              "name": "Parameters",
+              "type": "Parameter"
+            },
+            {
+              "inversePropertyName": "Extract",
+              "name": "DeliveryExtracts",
+              "type": "DeliveryExtract"
+            }
+          ]
+        },
+        "Name": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 100
+        },
+        "Description": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 100
+        },
+        "ExternalCode": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 100
+        },
+        "IsActive": {
+          "x-nullable": false,
+          "type": "boolean"
+        },
+        "Parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Parameter"
+          }
+        },
+        "DeliveryExtracts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DeliveryExtract"
+          }
+        }
+      }
+    },
+    "List": {
+      "x-table": "Extract.List",
+      "resource": "Lists",
+      "required": [
+        "Name"
+      ],
+      "properties": {
+        "ListId": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer"
+        },
+        "Name": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 10
+        },
+        "IsActive": {
+          "x-nullable": false,
+          "type": "boolean"
+        }
+      }
+    },
+    "ListExtract": {
+      "x-table": "Extract.ListExtract",
+      "resource": "ListExtracts",
+      "required": [
+        "ListId",
+        "ExtractId"
+      ],
+      "properties": {
+        "ListId": {
+          "x-nullable": false,
+          "type": "integer",
+          "x-key": true,
+          "x-virtual": true
+        },
+        "ExtractId": {
+          "x-nullable": false,
+          "type": "integer"
+        }
+      },
+      "x-view": true
+    },
+    "Parameter": {
+      "x-table": "Extract.Parameter",
+      "resource": "Parameters",
+      "required": [
+        "ExtractId",
+        "Name",
+        "Alias"
+      ],
+      "properties": {
+        "ParameterId": {
+          "x-key": true,
+          "x-identity": true,
+          "x-nullable": false,
+          "type": "integer",
+          "x-navigation": [
+            {
+              "inversePropertyName": "Parameter",
+              "name": "DeliveryParameters",
+              "type": "DeliveryParameter"
+            }
+          ]
+        },
+        "Extract": {
+          "type": "object",
+          "$ref": "#/definitions/Extract"
+        },
+        "ExtractId": {
+          "x-nullable": false,
+          "type": "integer",
+          "x-foreignKey": {
+            "parentTable": "Extract",
+            "parentEntityType": "Extract",
+            "type": "Extract",
+            "principalKey": "ExtractId",
+            "name": "Extract",
+            "textProperty": "Name",
+            "navigationProperty": "Parameters"
+          }
+        },
+        "Name": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 10
+        },
+        "Alias": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "Description": {
+          "type": "string",
+          "length": 100
+        },
+        "DeliveryParameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DeliveryParameter"
+          }
+        }
+      }
+    },
+    "ParameterValue": {
+      "x-table": "Extract.ParameterValue",
+      "resource": "ParameterValues",
+      "required": [
+        "ParameterValueCode",
+        "name"
+      ],
+      "properties": {
+        "ParameterValueCode": {
+          "x-key": true,
+          "x-nullable": false,
+          "type": "string",
+          "length": 4,
+          "x-navigation": [
+            {
+              "inversePropertyName": "ParameterValue",
+              "name": "DeliveryParameters",
+              "type": "DeliveryParameter"
+            }
+          ]
+        },
+        "name": {
+          "x-nullable": false,
+          "type": "string",
+          "length": 50
+        },
+        "Description": {
+          "type": "string",
+          "length": 200
+        },
+        "IsActive": {
+          "x-nullable": false,
+          "type": "boolean"
+        },
+        "DeliveryParameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DeliveryParameter"
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/DeliveryExtracts": {
+      "get": {
+        "operationId": "getDeliveryExtracts",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$count",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/DeliveryExtract"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createDeliveryExtract",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "DeliveryExtract",
+            "schema": {
+              "$ref": "#/definitions/DeliveryExtract"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/DeliveryExtract"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/DeliveryParameters": {
+      "get": {
+        "operationId": "getDeliveryParameters",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$count",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/DeliveryParameter"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createDeliveryParameter",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "DeliveryParameter",
+            "schema": {
+              "$ref": "#/definitions/DeliveryParameter"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/DeliveryParameter"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Extracts": {
+      "get": {
+        "operationId": "getExtracts",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$count",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/Extract"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createExtract",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Extract",
+            "schema": {
+              "$ref": "#/definitions/Extract"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Extract"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Lists": {
+      "get": {
+        "operationId": "getLists",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$count",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/List"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createList",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "List",
+            "schema": {
+              "$ref": "#/definitions/List"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/List"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/ListExtracts": {
+      "get": {
+        "operationId": "getListExtracts",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$count",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/ListExtract"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Parameters": {
+      "get": {
+        "operationId": "getParameters",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$count",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/Parameter"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createParameter",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Parameter",
+            "schema": {
+              "$ref": "#/definitions/Parameter"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Parameter"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/ParameterValues": {
+      "get": {
+        "operationId": "getParameterValues",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$count",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/ParameterValue"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createParameterValue",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "ParameterValue",
+            "schema": {
+              "$ref": "#/definitions/ParameterValue"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/ParameterValue"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/DeliveryExtracts({DeliveryExtractId})": {
+      "delete": {
+        "operationId": "deleteDeliveryExtract",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "DeliveryExtractId",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getDeliveryExtractByDeliveryExtractId",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "DeliveryExtractId",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/DeliveryExtract"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateDeliveryExtract",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "DeliveryExtractId",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "DeliveryExtract",
+            "schema": {
+              "$ref": "#/definitions/DeliveryExtract"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/DeliveryParameters({DeliveryParameterId})": {
+      "delete": {
+        "operationId": "deleteDeliveryParameter",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "DeliveryParameterId",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getDeliveryParameterByDeliveryParameterId",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "DeliveryParameterId",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/DeliveryParameter"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateDeliveryParameter",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "DeliveryParameterId",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "DeliveryParameter",
+            "schema": {
+              "$ref": "#/definitions/DeliveryParameter"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Extracts({ExtractId})": {
+      "delete": {
+        "operationId": "deleteExtract",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ExtractId",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getExtractByExtractId",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ExtractId",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Extract"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateExtract",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ExtractId",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "Extract",
+            "schema": {
+              "$ref": "#/definitions/Extract"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Lists({ListId})": {
+      "delete": {
+        "operationId": "deleteList",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ListId",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getListByListId",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ListId",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/List"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateList",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ListId",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "List",
+            "schema": {
+              "$ref": "#/definitions/List"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Parameters({ParameterId})": {
+      "delete": {
+        "operationId": "deleteParameter",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ParameterId",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getParameterByParameterId",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ParameterId",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Parameter"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateParameter",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ParameterId",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "Parameter",
+            "schema": {
+              "$ref": "#/definitions/Parameter"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/ParameterValues('{ParameterValueCode}')": {
+      "delete": {
+        "operationId": "deleteParameterValue",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ParameterValueCode",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getParameterValueByParameterValueCode",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ParameterValueCode",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/ParameterValue"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateParameterValue",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ParameterValueCode",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "ParameterValue",
+            "schema": {
+              "$ref": "#/definitions/ParameterValue"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "basePath": "/odata/SDE",
+  "host": "localhost:5001",
+  "schemes": [
+    "https"
+  ]
+}

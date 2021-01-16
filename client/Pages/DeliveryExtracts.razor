@@ -1,0 +1,47 @@
+﻿@page "/"
+@page "/delivery-extracts"
+@layout MainLayout
+@inherits Sde5.Pages.DeliveryExtractsComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using Sde5.Models.Sde
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Delivery Extracts">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenTextBox Placeholder="Search ..." style="display: block; margin-bottom: 10px; width: 100%" Name="Textbox0" @oninput="@(async(args) => {search = $"{args.Value}";await grid0.Reload();})">
+        </RadzenTextBox>
+        <RadzenGrid @ref="grid0" AllowFiltering="true" FilterMode="FilterMode.Advanced" AllowPaging="true" AllowSorting="true" Data="@getDeliveryExtractsResult" Count="@getDeliveryExtractsCount" TItem="Sde5.Models.Sde.DeliveryExtract" LoadData="@Grid0LoadData" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenGridColumn TItem="Sde5.Models.Sde.DeliveryExtract" Property="DeliveryExtractId" Title="Delivery Extract Id">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Sde5.Models.Sde.DeliveryExtract" Property="Name" Title="Name">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Sde5.Models.Sde.DeliveryExtract" Property="Description" Title="Description">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Sde5.Models.Sde.DeliveryExtract" Property="ExtractId" SortProperty="Extract.Name" FilterProperty="Extract.Name" Title="Extract">
+              <Template Context="data">
+              @(data.Extract?.Name)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Sde5.Models.Sde.DeliveryExtract" Property="DeliverAsSet" Title="Deliver As Set">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Sde5.Models.Sde.DeliveryExtract" Property="IsActive" Title="Is Active">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Sde5.Models.Sde.DeliveryExtract" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+              <Template Context="sde5ModelsSdeDeliveryExtract">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, sde5ModelsSdeDeliveryExtract))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

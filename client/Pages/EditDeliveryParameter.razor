@@ -1,0 +1,73 @@
+﻿@page "/edit-delivery-parameter/{DeliveryParameterId}"
+@layout MainLayout
+@inherits Sde5.Pages.EditDeliveryParameterComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using Sde5.Models.Sde
+<RadzenContent Container="main">
+  <ChildContent>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenTemplateForm TItem="Sde5.Models.Sde.DeliveryParameter" Data="@deliveryparameter" Visible="@(deliveryparameter != null)" Submit="@Form0Submit">
+          <ChildContent>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Delivery Extract" Component="DeliveryExtractId" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDownDataGrid Data="@getDeliveryExtractsForDeliveryExtractIdResult" TextProperty="Name" ValueProperty="DeliveryExtractId" Placeholder="Choose DeliveryExtract" ShowSearch="false" style="display: block; width: 100%" @bind-Value="@(deliveryparameter.DeliveryExtractId)" Name="DeliveryExtractId">
+                </RadzenDropDownDataGrid>
+                <RadzenRequiredValidator Component="DeliveryExtractId" Text="DeliveryExtractId is required" style="position: absolute" DefaultValue="0">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Parameter" Component="ParameterId" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDownDataGrid Data="@getParametersForParameterIdResult" TextProperty="Name" ValueProperty="ParameterId" Placeholder="Choose Parameter" ShowSearch="false" style="display: block; width: 100%" @bind-Value="@(deliveryparameter.ParameterId)" Name="ParameterId">
+                </RadzenDropDownDataGrid>
+                <RadzenRequiredValidator Component="ParameterId" Text="ParameterId is required" style="position: absolute" DefaultValue="0">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Value" Component="Value" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenTextBox MaxLength="4000" style="width: 100%" @bind-Value="@(deliveryparameter.Value)" Name="Value">
+                </RadzenTextBox>
+              </div>
+            </div>
+            <div style="margin-bottom: 1rem" class="row">
+              <div class="col-md-3">
+                <RadzenLabel Text="Parameter Value" Component="ParameterValueCode" style="width: 100%">
+                </RadzenLabel>
+              </div>
+              <div class="col-md-9">
+                <RadzenDropDownDataGrid Data="@getParameterValuesForParameterValueCodeResult" TextProperty="name" ValueProperty="ParameterValueCode" Placeholder="Choose ParameterValue" ShowSearch="false" style="display: block; width: 100%" @bind-Value="@(deliveryparameter.ParameterValueCode)" Name="ParameterValueCode">
+                </RadzenDropDownDataGrid>
+                <RadzenRequiredValidator Component="ParameterValueCode" Text="ParameterValueCode is required" style="position: absolute">
+                </RadzenRequiredValidator>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col offset-sm-3">
+                <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Save" ButtonStyle="ButtonStyle.Primary">
+                </RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Light" style="margin-left: 1rem" Text="Cancel" Click="@Button2Click">
+                </RadzenButton>
+              </div>
+            </div>
+          </ChildContent>
+        </RadzenTemplateForm>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

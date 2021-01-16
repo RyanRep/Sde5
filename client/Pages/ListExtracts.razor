@@ -1,0 +1,27 @@
+﻿@page "/list-extracts"
+@layout MainLayout
+@inherits Sde5.Pages.ListExtractsComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using Sde5.Models.Sde
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="List Extracts">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenTextBox Placeholder="Search ..." style="display: block; margin-bottom: 10px; width: 100%" Name="Textbox0" @oninput="@(async(args) => {search = $"{args.Value}";await grid0.Reload();})">
+        </RadzenTextBox>
+        <RadzenGrid @ref="grid0" AllowFiltering="true" FilterMode="FilterMode.Advanced" AllowPaging="true" AllowSorting="true" Data="@getListExtractsResult" Count="@getListExtractsCount" TItem="Sde5.Models.Sde.ListExtract" LoadData="@Grid0LoadData">
+          <Columns>
+            <RadzenGridColumn TItem="Sde5.Models.Sde.ListExtract" Property="ListId" Title="List Id">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Sde5.Models.Sde.ListExtract" Property="ExtractId" Title="Extract Id">
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

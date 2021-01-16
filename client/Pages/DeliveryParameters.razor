@@ -1,0 +1,50 @@
+﻿@page "/delivery-parameters"
+@layout MainLayout
+@inherits Sde5.Pages.DeliveryParametersComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using Sde5.Models.Sde
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Delivery Parameters">
+    </RadzenHeading>
+    <div class="row">
+      <div class="col-md-12">
+        <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+        </RadzenButton>
+        <RadzenTextBox Placeholder="Search ..." style="display: block; margin-bottom: 10px; width: 100%" Name="Textbox0" @oninput="@(async(args) => {search = $"{args.Value}";await grid0.Reload();})">
+        </RadzenTextBox>
+        <RadzenGrid @ref="grid0" AllowFiltering="true" FilterMode="FilterMode.Advanced" AllowPaging="true" AllowSorting="true" Data="@getDeliveryParametersResult" Count="@getDeliveryParametersCount" TItem="Sde5.Models.Sde.DeliveryParameter" LoadData="@Grid0LoadData" RowSelect="@Grid0RowSelect">
+          <Columns>
+            <RadzenGridColumn TItem="Sde5.Models.Sde.DeliveryParameter" Property="DeliveryParameterId" Title="Delivery Parameter Id">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Sde5.Models.Sde.DeliveryParameter" Property="DeliveryExtractId" SortProperty="DeliveryExtract.Name" FilterProperty="DeliveryExtract.Name" Title="Delivery Extract">
+              <Template Context="data">
+              @(data.DeliveryExtract?.Name)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Sde5.Models.Sde.DeliveryParameter" Property="ParameterId" SortProperty="Parameter.Name" FilterProperty="Parameter.Name" Title="Parameter">
+              <Template Context="data">
+              @(data.Parameter?.Name)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Sde5.Models.Sde.DeliveryParameter" Property="Value" Title="Value">
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Sde5.Models.Sde.DeliveryParameter" Property="ParameterValueCode" SortProperty="ParameterValue.name" FilterProperty="ParameterValue.name" Title="Parameter Value">
+              <Template Context="data">
+              @(data.ParameterValue?.name)
+              </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Sde5.Models.Sde.DeliveryParameter" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+              <Template Context="sde5ModelsSdeDeliveryParameter">
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, sde5ModelsSdeDeliveryParameter))" @onclick:stopPropagation="true">
+                </RadzenButton>
+              </Template>
+            </RadzenGridColumn>
+          </Columns>
+        </RadzenGrid>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>

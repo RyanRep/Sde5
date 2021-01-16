@@ -1,0 +1,342 @@
+{
+  "components": [
+    {
+      "type": "content",
+      "container": "main",
+      "components": [
+        {
+          "type": "row",
+          "components": [
+            {
+              "type": "col",
+              "class": "col-md-12",
+              "components": [
+                {
+                  "type": "template-form",
+                  "name": "form0",
+                  "components": [
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Delivery Extract",
+                              "component": "DeliveryExtractId",
+                              "name": "DeliveryExtractIdLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getDeliveryExtractsForDeliveryExtractIdResult}",
+                              "textProperty": "Name",
+                              "valueProperty": "DeliveryExtractId",
+                              "placeholder": "Choose DeliveryExtract",
+                              "valueType": "int",
+                              "showSearch": false,
+                              "type": "dropdown-datagrid",
+                              "name": "DeliveryExtractId",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${deliveryparameter.DeliveryExtractId}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "DeliveryExtractIdRequiredValidator",
+                              "component": "DeliveryExtractId",
+                              "text": "DeliveryExtractId is required",
+                              "style": {
+                                "position": "absolute"
+                              },
+                              "defaultValue": "0"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Parameter",
+                              "component": "ParameterId",
+                              "name": "ParameterIdLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getParametersForParameterIdResult}",
+                              "textProperty": "Name",
+                              "valueProperty": "ParameterId",
+                              "placeholder": "Choose Parameter",
+                              "valueType": "int",
+                              "showSearch": false,
+                              "type": "dropdown-datagrid",
+                              "name": "ParameterId",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${deliveryparameter.ParameterId}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "ParameterIdRequiredValidator",
+                              "component": "ParameterId",
+                              "text": "ParameterId is required",
+                              "style": {
+                                "position": "absolute"
+                              },
+                              "defaultValue": "0"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Value",
+                              "component": "Value",
+                              "name": "ValueLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "valueType": "string",
+                              "maxLength": 4000,
+                              "type": "textbox",
+                              "name": "Value",
+                              "style": {
+                                "width": "100%"
+                              },
+                              "value": "${deliveryparameter.Value}"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "style": {
+                        "marginBottom": "1rem"
+                      },
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-3",
+                          "components": [
+                            {
+                              "type": "label",
+                              "text": "Parameter Value",
+                              "component": "ParameterValueCode",
+                              "name": "ParameterValueCodeLabel",
+                              "style": {
+                                "width": "100%"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "col",
+                          "class": "col-md-9",
+                          "components": [
+                            {
+                              "data": "${getParameterValuesForParameterValueCodeResult}",
+                              "textProperty": "name",
+                              "valueProperty": "ParameterValueCode",
+                              "placeholder": "Choose ParameterValue",
+                              "valueType": "string",
+                              "showSearch": false,
+                              "type": "dropdown-datagrid",
+                              "name": "ParameterValueCode",
+                              "style": {
+                                "display": "block",
+                                "width": "100%"
+                              },
+                              "value": "${deliveryparameter.ParameterValueCode}"
+                            },
+                            {
+                              "type": "required-validator",
+                              "name": "ParameterValueCodeRequiredValidator",
+                              "component": "ParameterValueCode",
+                              "text": "ParameterValueCode is required",
+                              "style": {
+                                "position": "absolute"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "row",
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col offset-sm-3",
+                          "components": [
+                            {
+                              "type": "button",
+                              "buttonType": "submit",
+                              "icon": "save",
+                              "text": "Save",
+                              "buttonStyle": "primary"
+                            },
+                            {
+                              "type": "button",
+                              "buttonStyle": "light",
+                              "style": {
+                                "marginLeft": "1rem"
+                              },
+                              "text": "Cancel",
+                              "events": {
+                                "click": [
+                                  {
+                                    "type": "close-popup"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "events": {
+                    "submit": [
+                      {
+                        "error": [
+                          {
+                            "detail": "Unable to create new DeliveryParameter!",
+                            "severity": "error",
+                            "summary": "Error",
+                            "type": "notify"
+                          }
+                        ],
+                        "name": "SDE.createDeliveryParameter",
+                        "parameters": [
+                          {
+                            "name": "DeliveryParameter",
+                            "value": "${deliveryparameter}"
+                          }
+                        ],
+                        "then": [
+                          {
+                            "type": "close-popup",
+                            "result": "${deliveryparameter}"
+                          }
+                        ],
+                        "type": "invoke"
+                      }
+                    ]
+                  },
+                  "data": "${deliveryparameter}",
+                  "visible": "${deliveryparameter != null}",
+                  "itemType": "Sde5.Models.Sde.DeliveryParameter"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "SDE.getDeliveryExtracts",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getDeliveryExtractsForDeliveryExtractIdResult",
+            "type": "set",
+            "value": "${result.Value.AsODataEnumerable()}",
+            "valueType": "IEnumerable<Sde5.Models.Sde.DeliveryExtract>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "SDE.getParameters",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getParametersForParameterIdResult",
+            "type": "set",
+            "value": "${result.Value.AsODataEnumerable()}",
+            "valueType": "IEnumerable<Sde5.Models.Sde.Parameter>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "SDE.getParameterValues",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getParameterValuesForParameterValueCodeResult",
+            "type": "set",
+            "value": "${result.Value.AsODataEnumerable()}",
+            "valueType": "IEnumerable<Sde5.Models.Sde.ParameterValue>"
+          }
+        ],
+        "type": "invoke"
+      },
+      {
+        "name": "deliveryparameter",
+        "type": "set",
+        "value": "new Sde5.Models.Sde.DeliveryParameter(){}",
+        "valueType": "Sde5.Models.Sde.DeliveryParameter"
+      }
+    ]
+  },
+  "name": "Add Delivery Parameter",
+  "layout": "Main"
+}
